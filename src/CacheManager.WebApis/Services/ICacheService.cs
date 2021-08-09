@@ -10,11 +10,14 @@ namespace CacheManager.WebApis.Services
         string ErrorMessage { get; set; }
         bool HasError { get; }
         Task<CacheObject> GetObject(GetObjectRequest request);
-        Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request);
-        Task<object> GetObjectProperty(GetObjectPropertyRequest request);
         Task SetObject(CacheObject request);
-        Task SetObjectCollection(CacheObjectCollection request);
+        Task<object> GetObjectProperty(GetObjectPropertyRequest request);
         Task SetObjectProperty(SetObjectPropertyRequest request);
+        Task RefreshObject(RefreshObjectRequest request);
+        Task RemoveObject(RemoveObjectRequest request);
+
+        Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request);
+        Task SetObjectCollection(CacheObjectCollection request);
 
     }
 }

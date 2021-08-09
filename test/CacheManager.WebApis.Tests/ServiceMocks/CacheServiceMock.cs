@@ -31,6 +31,16 @@ namespace CacheManager.WebApis.Tests.ServiceMocks
             return new() { };
         }
 
+        public async Task RefreshObject(RefreshObjectRequest request)
+        {
+            return;
+        }
+
+        public async Task RemoveObject(RemoveObjectRequest request)
+        {
+            return;
+        }
+
         public async Task SetObject(CacheObject request)
         {
             return;

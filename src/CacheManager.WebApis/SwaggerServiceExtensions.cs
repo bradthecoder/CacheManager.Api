@@ -1,4 +1,7 @@
 ﻿#region Using Statements
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 #endregion
@@ -36,11 +39,11 @@ namespace CacheManager.WebApis
                 //c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
                 //        { "Bearer", Enumerable.Empty<string>() },
                 //    });
-                
+
                 // Set the comments path for the Swagger JSON and UI.
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
  
             return services;
