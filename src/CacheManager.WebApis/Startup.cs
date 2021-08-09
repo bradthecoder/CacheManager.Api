@@ -23,7 +23,16 @@ namespace CacheManager.WebApis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //https://docs.microsoft.com/en-us/aspnet/core/performance/caching/distributed
             services.AddDistributedMemoryCache();
+
+            //// Distributed SQL Server Cache
+            //services.AddDistributedSqlServerCache(options =>
+            //{
+            //    options.ConnectionString = Configuration.GetConnectionString("DistCacheDb");
+            //    options.SchemaName = "dbo";
+            //    options.TableName = "CacheItems";
+            //});
 
             services.AddControllers()
                 .AddJsonOptions(options => {
