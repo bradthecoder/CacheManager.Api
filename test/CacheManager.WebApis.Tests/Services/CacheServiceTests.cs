@@ -92,7 +92,6 @@ namespace CacheManager.WebApis.Tests.Services
             Assert.IsNotNull(actual);
         }
 
-
         [TestMethod]
         public async Task SetObject_Test()
         {
@@ -136,20 +135,6 @@ namespace CacheManager.WebApis.Tests.Services
 
             // Act
             await target.SetObjectProperty(input);
-
-            // Assert
-            Assert.IsFalse(target.HasError);
-        }
-
-        [TestMethod]
-        public async Task SetObjectCollection_Test()
-        {
-            // Arrange
-            CacheService target = new CacheService(_configuration, _distributedCache);
-            CacheObjectCollection input = MockCacheObjectCollection();
-
-            // Act
-            await target.SetObjectCollection(input);
 
             // Assert
             Assert.IsFalse(target.HasError);
@@ -236,6 +221,52 @@ namespace CacheManager.WebApis.Tests.Services
             // Assert
             Assert.IsFalse(target.HasError);
             Assert.IsNull(actual);
+        }
+
+        [TestMethod]
+        public async Task RefreshObject_Test()
+        {
+            // Arrange
+            CacheService target = new CacheService(_configuration, _distributedCache);
+            var existing = this.MockCacheObject();
+            var input = new RefreshObjectRequest() { Id = existing.Id, Type = existing.Type };
+
+            // Act
+            await target.RefreshObject(input);
+
+            // Assert
+            Assert.IsFalse(target.HasError);
+        }
+
+        [TestMethod]
+        public async Task RemoveObject_Test()
+        {
+            // Arrange
+            CacheService target = new CacheService(_configuration, _distributedCache);
+            var existing = this.MockCacheObject();
+            var input = new RemoveObjectRequest() { Id = existing.Id, Type = existing.Type };
+
+            // Act
+            await target.RemoveObject(input);
+
+            // Assert
+            Assert.IsFalse(target.HasError);
+        }
+
+
+
+        [TestMethod]
+        public async Task SetObjectCollection_Test()
+        {
+            // Arrange
+            CacheService target = new CacheService(_configuration, _distributedCache);
+            CacheObjectCollection input = MockCacheObjectCollection();
+
+            // Act
+            await target.SetObjectCollection(input);
+
+            // Assert
+            Assert.IsFalse(target.HasError);
         }
 
         [TestMethod]

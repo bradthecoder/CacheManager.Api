@@ -111,6 +111,38 @@ namespace CacheManager.WebApis.Tests.api
             Assert.IsNull(response.Error);
         }
 
+        [TestMethod]
+        public async Task RefreshObject_Test()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_mockService);
+            RefreshObjectRequest input = new() { Id = 1, Type = CacheObjectType.User };
+
+            // Act
+            var actual = await target.RefreshObject(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsNull(response.Error);
+        }
+
+        [TestMethod]
+        public async Task RemoveObject_Test()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_mockService);
+            RemoveObjectRequest input = new() { Id = 1, Type = CacheObjectType.User };
+
+            // Act
+            var actual = await target.RemoveObject(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsNull(response.Error);
+        }
+
         //EXCEPTIONS
 
         [TestMethod]
@@ -202,6 +234,38 @@ namespace CacheManager.WebApis.Tests.api
 
             // Act
             var actual = await target.SetObjectProperty(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
+        }
+
+        [TestMethod]
+        public async Task RefreshObject_Test_Exception()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_errorService);
+            RefreshObjectRequest input = new() { Id = 1, Type = CacheObjectType.User };
+
+            // Act
+            var actual = await target.RefreshObject(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
+        }
+
+        [TestMethod]
+        public async Task RemoveObject_Test_Exception()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_errorService);
+            RemoveObjectRequest input = new() { Id = 1, Type = CacheObjectType.User };
+
+            // Act
+            var actual = await target.RemoveObject(input) as OkObjectResult;
 
             // Assert
             Assert.IsNotNull(actual);
