@@ -21,11 +21,6 @@ namespace CacheManager.WebApis.Tests.ServiceMocks
             return new CacheObject() { Id = 1, Type = CacheObjectType.User, Properties = new Dictionary<string, object>() };
         }
 
-        public async Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request)
-        {
-            return new CacheObjectCollection() { Id = 10, Type = CacheObjectCollectionType.DataXyz, Items = new List<object>() } ;
-        }
-
         public async Task<object> GetObjectProperty(GetObjectPropertyRequest request)
         {
             return new() { };
@@ -41,12 +36,12 @@ namespace CacheManager.WebApis.Tests.ServiceMocks
             return;
         }
 
-        public async Task SetObject(CacheObject request)
+        public async Task RemoveObjectProperty(RemoveObjectPropertyRequest request)
         {
             return;
         }
 
-        public async Task SetObjectCollection(CacheObjectCollection request)
+        public async Task SetObject(CacheObject request)
         {
             return;
         }

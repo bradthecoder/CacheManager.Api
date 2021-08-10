@@ -16,8 +16,7 @@ namespace CacheManager.WebApis.Services
         Task RefreshObject(RefreshObjectRequest request);
         Task RemoveObject(RemoveObjectRequest request);
 
-        Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request);
-        Task SetObjectCollection(CacheObjectCollection request);
+        Task RemoveObjectProperty(RemoveObjectPropertyRequest request);
 
     }
 }

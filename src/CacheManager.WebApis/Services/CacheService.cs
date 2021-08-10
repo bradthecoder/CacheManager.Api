@@ -114,23 +114,25 @@ namespace CacheManager.WebApis.Services
             return;
         }
 
-        #region ObjectCollection
-        public async Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request)
+        public async Task RemoveObjectProperty(RemoveObjectPropertyRequest request)
         {
-            CacheObjectCollection toReturn = null;
-            byte[] value = await _cache.GetAsync($"{request.Type}-{request.Id}");
-            if (value != null)
-            {
-                toReturn = ByteArrayToObject<CacheObjectCollection>(value);
-            }
-            return toReturn;
-        }
-        public async Task SetObjectCollection(CacheObjectCollection request)
-        {
-            await _cache.SetAsync($"{request.Type}-{request.Id}", ObjectToByteArray(request), CacheOptions);
-            return;
-        } 
-        #endregion
+            CacheObject cacheObject = await GetObject(new GetObjectRequest { Id = request.Id, Type = request.Type });
 
+            if (cacheObject == null)
+            {
+                cacheObject = new()
+                {
+                    Id = request.Id,
+                    Type = request.Type,
+                    Properties = new()
+                };
+            }
+            foreach (string key in request.Properties)
+            {
+                cacheObject.Properties.Remove(key);
+            }
+            await SetObject(cacheObject);
+            return;
+        }
     }
 }

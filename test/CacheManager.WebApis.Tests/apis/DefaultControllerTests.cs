@@ -1,4 +1,5 @@
 ﻿#region Using Statements
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CacheManager.WebApis.api;
 using CacheManager.WebApis.Models;
@@ -32,22 +33,6 @@ namespace CacheManager.WebApis.Tests.api
         }
 
         [TestMethod]
-        public async Task GetObjectCollection_Test()
-        {
-            // Arrange
-            DefaultController target = new DefaultController(_mockService);
-            GetObjectCollectionRequest input = new();
-
-            // Act
-            var actual = await target.GetObjectCollection(input) as OkObjectResult;
-
-            // Assert
-            Assert.IsNotNull(actual);
-            var response = ((ResponseBase<CacheObjectCollection>)actual.Value);
-            Assert.IsNull(response.Error);
-        }
-
-        [TestMethod]
         public async Task GetObjectProperty_Test()
         {
             // Arrange
@@ -72,22 +57,6 @@ namespace CacheManager.WebApis.Tests.api
 
             // Act
             var actual = await target.SetObject(input) as OkObjectResult;
-
-            // Assert
-            Assert.IsNotNull(actual);
-            var response = ((ResponseBase<string>)actual.Value);
-            Assert.IsNull(response.Error);
-        }
-
-        [TestMethod]
-        public async Task SetObjectCollection_Test()
-        {
-            // Arrange
-            DefaultController target = new DefaultController(_mockService);
-            CacheObjectCollection input = new();
-
-            // Act
-            var actual = await target.SetObjectCollection(input) as OkObjectResult;
 
             // Assert
             Assert.IsNotNull(actual);
@@ -143,6 +112,22 @@ namespace CacheManager.WebApis.Tests.api
             Assert.IsNull(response.Error);
         }
 
+        [TestMethod]
+        public async Task RemoveObjectProperty_Test()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_mockService);
+            RemoveObjectPropertyRequest input = new() { Id = 1, Type = CacheObjectType.User, Properties = new List<string>() { "somekey" } };
+
+            // Act
+            var actual = await target.RemoveObjectProperty(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsNull(response.Error);
+        }
+
         //EXCEPTIONS
 
         [TestMethod]
@@ -158,22 +143,6 @@ namespace CacheManager.WebApis.Tests.api
             // Assert
             Assert.IsNotNull(actual);
             var response = ((ResponseBase<CacheObject>)actual.Value);
-            Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
-        }
-
-        [TestMethod]
-        public async Task GetObjectCollection_Test_Exception()
-        {
-            // Arrange
-            DefaultController target = new DefaultController(_errorService);
-            GetObjectCollectionRequest input = new();
-
-            // Act
-            var actual = await target.GetObjectCollection(input) as OkObjectResult;
-
-            // Assert
-            Assert.IsNotNull(actual);
-            var response = ((ResponseBase<CacheObjectCollection>)actual.Value);
             Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
         }
 
@@ -202,22 +171,6 @@ namespace CacheManager.WebApis.Tests.api
 
             // Act
             var actual = await target.SetObject(input) as OkObjectResult;
-
-            // Assert
-            Assert.IsNotNull(actual);
-            var response = ((ResponseBase<string>)actual.Value);
-            Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
-        }
-
-        [TestMethod]
-        public async Task SetObjectCollection_Test_Exception()
-        {
-            // Arrange
-            DefaultController target = new DefaultController(_errorService);
-            CacheObjectCollection input = new();
-
-            // Act
-            var actual = await target.SetObjectCollection(input) as OkObjectResult;
 
             // Assert
             Assert.IsNotNull(actual);
@@ -266,6 +219,22 @@ namespace CacheManager.WebApis.Tests.api
 
             // Act
             var actual = await target.RemoveObject(input) as OkObjectResult;
+
+            // Assert
+            Assert.IsNotNull(actual);
+            var response = ((ResponseBase<string>)actual.Value);
+            Assert.IsFalse(string.IsNullOrEmpty(response.Error.Message));
+        }
+
+        [TestMethod]
+        public async Task RemoveObjectProperty_Test_Exception()
+        {
+            // Arrange
+            DefaultController target = new DefaultController(_errorService);
+            RemoveObjectPropertyRequest input = new() { Id = 1, Type = CacheObjectType.User, Properties = new List<string>() { "somekey" } };
+
+            // Act
+            var actual = await target.RemoveObjectProperty(input) as OkObjectResult;
 
             // Assert
             Assert.IsNotNull(actual);

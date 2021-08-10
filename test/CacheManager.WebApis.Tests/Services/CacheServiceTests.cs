@@ -20,14 +20,6 @@ namespace CacheManager.WebApis.Tests.Services
             return input;
         }
 
-        private CacheObjectCollection MockCacheObjectCollection()
-        {
-            CacheObjectCollection input = new() { Id = 999, Type = CacheObjectCollectionType.DataXyz, Items = new List<object>() };
-            input.Items.Add(new { Id = Guid.NewGuid(), Message = "hello world" });
-            input.Items.Add(new { Id = Guid.NewGuid(), Message = "this is a test" });
-            return input;
-        }
-
         [TestMethod]
         public void HasError_True_Test()
         {
@@ -253,54 +245,22 @@ namespace CacheManager.WebApis.Tests.Services
             Assert.IsFalse(target.HasError);
         }
 
-
-
         [TestMethod]
-        public async Task SetObjectCollection_Test()
+        public async Task RemoveObjectProperty_Test()
         {
             // Arrange
             CacheService target = new CacheService(_configuration, _distributedCache);
-            CacheObjectCollection input = MockCacheObjectCollection();
+            var existing = this.MockCacheObject();
+            var input = new RemoveObjectPropertyRequest() { Id = existing.Id, Type = existing.Type, Properties = new List<string>() { "somekey" } };
 
             // Act
-            await target.SetObjectCollection(input);
+            await target.RemoveObjectProperty(input);
 
             // Assert
             Assert.IsFalse(target.HasError);
         }
 
-        [TestMethod]
-        public async Task GetObjectCollection__Null_Test()
-        {
-            // Arrange
-            CacheService target = new CacheService(_configuration, _distributedCache);
-            var existing = MockCacheObjectCollection();
-            var input = new GetObjectCollectionRequest() { Id = existing.Id, Type = existing.Type };
 
-            // Act
-            var actual = await target.GetObjectCollection(input);
-
-            // Assert
-            Assert.IsFalse(target.HasError);
-            Assert.IsNull(actual);
-        }
-
-        [TestMethod]
-        public async Task GetObjectCollection_Test()
-        {
-            // Arrange
-            CacheService target = new CacheService(_configuration, _distributedCache);
-            var existing = MockCacheObjectCollection();
-            await target.SetObjectCollection(existing);
-            var input = new GetObjectCollectionRequest() { Id = existing.Id, Type = existing.Type };
-
-            // Act
-            var actual = await target.GetObjectCollection(input);
-
-            // Assert
-            Assert.IsFalse(target.HasError);
-            Assert.IsNotNull(actual);
-        }
 
     }
 }

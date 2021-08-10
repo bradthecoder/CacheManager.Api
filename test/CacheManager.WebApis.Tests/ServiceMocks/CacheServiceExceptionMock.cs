@@ -21,12 +21,6 @@ namespace CacheManager.WebApis.Tests.ServiceMocks
             return new CacheObject();
         }
 
-        public async Task<CacheObjectCollection> GetObjectCollection(GetObjectCollectionRequest request)
-        {
-            this.ErrorMessage = "error";
-            return new CacheObjectCollection();
-        }
-
         public async Task<object> GetObjectProperty(GetObjectPropertyRequest request)
         {
             this.ErrorMessage = "error";
@@ -45,13 +39,13 @@ namespace CacheManager.WebApis.Tests.ServiceMocks
             return;
         }
 
-        public async Task SetObject(CacheObject request)
+        public async Task RemoveObjectProperty(RemoveObjectPropertyRequest request)
         {
             this.ErrorMessage = "error";
             return;
         }
 
-        public async Task SetObjectCollection(CacheObjectCollection request)
+        public async Task SetObject(CacheObject request)
         {
             this.ErrorMessage = "error";
             return;

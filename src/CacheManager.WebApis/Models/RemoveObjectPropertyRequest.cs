@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace CacheManager.WebApis.Models
 {
-    public class CacheObjectCollection
+    public class RemoveObjectPropertyRequest
     {
         public int Id { get; set; }
 
-        public CacheObjectCollectionType Type { get; set; }
+        public CacheObjectType Type { get; set; }
 
-        public List<object> Items { get; set; }
+        public List<string> Properties { get; set; }
 
     }
 }

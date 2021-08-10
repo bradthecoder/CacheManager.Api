@@ -210,33 +210,37 @@ namespace CacheManager.WebApis.api
             return Ok(toReturn);
         }
 
+        /// <summary>
+        /// Removes one or more object properties
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /removeObjectProperty
+        ///     {
+        ///          "id": 1,
+        ///          "type": "User",
+        ///          "properties": [
+        ///             "title"
+        ///          ]
+        ///     }
+        ///     
+        /// </remarks>
+        /// <response code="200"></response>  
         [HttpPost]
-        [Route("getObjectCollection")]
+        [Route("removeObjectProperty")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetObjectCollection(GetObjectCollectionRequest request)
-        {
-            ResponseBase<CacheObjectCollection> toReturn = new();
-            toReturn.Message = await _cacheService.GetObjectCollection(request);
-            if (_cacheService.HasError)
-            {
-                toReturn.Error = new() { Message = _defaultServerErrorMessage };
-            }
-            return Ok(toReturn);
-        }
-
-        [HttpPost]
-        [Route("setObjectCollection")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SetObjectCollection(CacheObjectCollection request)
+        public async Task<IActionResult> RemoveObjectProperty(RemoveObjectPropertyRequest request)
         {
             ResponseBase<string> toReturn = new();
-            await _cacheService.SetObjectCollection(request);
+            await _cacheService.RemoveObjectProperty(request);
             if (_cacheService.HasError)
             {
                 toReturn.Error = new() { Message = _defaultServerErrorMessage };
             }
             return Ok(toReturn);
         }
-
     }
 }
