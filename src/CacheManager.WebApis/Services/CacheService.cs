@@ -32,7 +32,7 @@ namespace CacheManager.WebApis.Services
             get {
                 int minutes = _configuration.GetValue<int>("SlidingExpirationMinutes");
                 return new DistributedCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(minutes)); 
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(minutes)); 
             }
         }
 
