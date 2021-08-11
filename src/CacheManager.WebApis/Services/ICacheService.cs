@@ -15,7 +15,6 @@ namespace CacheManager.WebApis.Services
         Task SetObjectProperty(SetObjectPropertyRequest request);
         Task RefreshObject(RefreshObjectRequest request);
         Task RemoveObject(RemoveObjectRequest request);
-
         Task RemoveObjectProperty(RemoveObjectPropertyRequest request);
 
     }
